@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show My Location</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Show My Current Location</h1>
+  <button id="locationButton">Open Google Maps</button>
+
+  <script>
+    document.getElementById("locationButton").addEventListener("click", function () {
+      // Check if geolocation is available in the browser
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            // Open the Google Maps link in a new tab
+            window.open(googleMapsUrl, "_blank");
+          },
+          function (error) {
+            alert("Unable to retrieve your location. Please check your location settings.");
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by your browser.");
+      }
+    });
+  </script>
+</body>
+</html>
